@@ -1,6 +1,7 @@
 package main
 
 import (
+    "strings"
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/template/pug"
 )
@@ -17,7 +18,7 @@ func main() {
     })
 
     app.Get("/similar", func(c *fiber.Ctx) error {
-        similarWords := trie.similar(c.Query("search"))
+        similarWords := trie.similar(strings.ToLower(c.Query("search")))
         Jade_similarwords(similarWords, c)
         return nil
     })

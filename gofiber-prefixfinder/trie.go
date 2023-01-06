@@ -45,6 +45,9 @@ func (trie *Trie) get(prefix string) *TrieNode {
 
 // Retrieves all the complete words in the trie that begins with the same prefix
 func suffix(node *TrieNode, prefix string, similarWords []string) []string {
+    if len(prefix) == 0 {
+        return []string{}
+    }
     if node != nil {
         if node.isWord {
             similarWords = append(similarWords, prefix)
