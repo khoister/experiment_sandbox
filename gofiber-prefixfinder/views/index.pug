@@ -3,17 +3,28 @@ html
   head
     title #{.Title}
     script(src="https://unpkg.com/htmx.org@1.8.4" integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV" crossorigin="anonymous")
+    script(defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
+    script(defer src="//unpkg.com/alpinejs")
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css")
   body
   section(class="section")
-    div(class="container")
+    div(class="container" x-data="{ triggerUrl: '/prefix'}")
         h1(class="title") #{.Title}
 
-        input(
-            class="input is-primary" type="text" name="search" placeholder="Begin typing to find similar words..."
-            hx-get="/similar"
-            hx-trigger="keyup changed"
-            hx-target="#similar-results"
-        )
+        div(class="select is-normal" x-model="triggerUrl")
+            select(class="is-hovered" id="searchType" name="searchType" x-model="triggerUrl")
+                option(value="/prefix") Prefix Words
+                option(value="/anagram") Anagrams
 
-        div#similar-results
+        div(class="control has-icons-left")
+            input(
+                class="input is-primary" type="text" name="search" placeholder="Begin typing to find similar words..."
+                x-bind:hx-get="triggerUrl"
+                hx-trigger="keyup changed"
+                hx-target="#search-results"
+                x-effect="triggerUrl; htmx.process(document.body)"
+            )
+            span(class="icon is-normal is-left")
+                i(class="fas fa-search")
+
+        div#search-results

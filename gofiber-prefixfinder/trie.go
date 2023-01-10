@@ -60,7 +60,7 @@ func suffix(node *TrieNode, prefix string, similarWords []string) []string {
 }
 
 // Load words from a file into a trie data structure
-func load(filename string) *Trie {
+func loadTrie(filename string) *Trie {
     readFile, err := os.Open(filename)
 
     if err != nil {
