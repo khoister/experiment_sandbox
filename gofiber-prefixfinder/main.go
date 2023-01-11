@@ -9,6 +9,8 @@ import (
 func main() {
     anagramFinder := loadAnagrams("enable1.txt")
     trie := loadTrie("enable1.txt")
+    dictionary := loadDictionary("./dictionary.db")
+
     engine := pug.New("./views", ".pug")
     app := fiber.New(fiber.Config{
         Views: engine,
@@ -27,6 +29,12 @@ func main() {
     app.Get("/anagram", func(c *fiber.Ctx) error {
         anagrams := anagramFinder.find(strings.ToLower(c.Query("search")))
         Jade_similarwords(anagrams, c)
+        return nil
+    })
+
+    app.Get("/definition/:word", func(c *fiber.Ctx) error {
+        definitions := dictionary.find(strings.ToLower(c.Params("word")))
+        Jade_definitiondetails(definitions, c)
         return nil
     })
 

@@ -11,20 +11,26 @@ html
     div(class="container" x-data="{ triggerUrl: '/prefix'}")
         h1(class="title") #{.Title}
 
-        div(class="select is-normal" x-model="triggerUrl")
-            select(class="is-hovered" id="searchType" name="searchType" x-model="triggerUrl")
-                option(value="/prefix") Prefix Words
-                option(value="/anagram") Anagrams
+        div(class="box")
+            div(class="block")
+                div(class="select is-normal" x-model="triggerUrl")
+                    select(class="is-hovered" id="searchType" name="searchType" x-model="triggerUrl")
+                        option(value="/prefix") Prefix Words
+                        option(value="/anagram") Anagrams
 
-        div(class="control has-icons-left")
-            input(
-                class="input is-primary" type="text" name="search" placeholder="Begin typing to find similar words..."
-                x-bind:hx-get="triggerUrl"
-                hx-trigger="keyup changed"
-                hx-target="#search-results"
-                x-effect="triggerUrl; htmx.process(document.body)"
-            )
-            span(class="icon is-normal is-left")
-                i(class="fas fa-search")
+            div(class="block")
+                div(class="control has-icons-left")
+                    input(
+                        class="input is-primary" type="text" name="search" placeholder="Begin typing to find similar words..."
+                        x-bind:hx-get="triggerUrl"
+                        hx-trigger="keyup changed"
+                        hx-target="#search-results"
+                        x-effect="triggerUrl; htmx.process(document.body)"
+                    )
+                    span(class="icon is-normal is-left")
+                        i(class="fas fa-search")
 
-        div#search-results
+        div(class="block")
+            div(class="columns is-mobile")
+                div#search-results(class="column is-one-fifth")
+                div#definition-details(class="column")

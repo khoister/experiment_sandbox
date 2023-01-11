@@ -1,4 +1,7 @@
 :go:func(arg) similarWords []string
-ul
-    each word, _ in similarWords
-        li= word
+div(class="tile is-ancestor")
+    div(class="tile is-vertical is-1")
+        div(class="buttons")
+            each word, _ in similarWords
+                button(class="button is-text" hx-get="/definition/"+word hx-target="#definition-details") #{word}
+
